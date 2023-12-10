@@ -4,14 +4,14 @@ Aplicação gerenciador de treinamentos desenvolvida na disciplina de Desenvolvi
 
 ### Dependências
 
--   Docker
--   Docker Compose
+- Docker
+- Docker Compose
 
 ### Run
 
 ```
-$ git clone git@github.com:SI-DABE/todo-list.git
-$ cd todo-list
+$ git clone https://github.com/andrebsilva10/training-system-dabe.git
+$ cd training-system-dabe
 $ docker compose run --rm composer composer install
 $ docker compose up -d
 ```

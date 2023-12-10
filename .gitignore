@@ -1,0 +1,7 @@
+/.vscode/*
+/log/nginx/*
+!/log/ngnx/.gitkeep
+/vendor/
+/.phpunit.result.cache
+/.phpunit.cache
+/public/assets/uploads

@@ -1,0 +1,39 @@
+<h1><?= $training->getName() ?></h1>
+
+<h2>Colaboradores</h2>
+
+<?php $simpleForm->for($training_user, "/trainings/{$training->getId()}/collaborators", 'POST', function ($form) use ($users) { ?>
+
+<?= $form->selectFor(attribute: 'user_id', name: 'Colaborador', prompt: 'Selecione', collection: $users) ?>
+<?= $form->submit('Adicionar') ?>
+
+<?php }) ?>
+
+<table>
+  <thead>
+    <th>ID</th>
+    <th>Nome</th>
+  </thead>
+  <tbody>
+    <?php foreach ($training->collaborators()->all() as $collaborator) : ?>
+    <tr>
+      <td><?= $collaborator->getId() ?></td>
+      <td><?= $collaborator->getName() ?></td>
+      <td>
+        <form
+          action="<?= "/trainings/{$training->getId()}/collaborators/{$collaborator->getId()}" ?>"
+          method="POST" class="form-inline">
+          <input type='hidden' name="_method" value='DELETE'>
+          <input type="submit" value="Remover">
+        </form>
+      </td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+
+<hr>
+
+
+
+<a href="/trainings">Todos os treinamentos</a>

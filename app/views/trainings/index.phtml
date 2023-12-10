@@ -1,0 +1,24 @@
+<h1>Lista de Treinamentos</h1>
+
+<ul>
+  <?php foreach ($trainings as $_training) : ?>
+  <li>
+    <form action="/trainings" method="POST" class="form-inline">
+      <input type='hidden' name="_method" value='DELETE'>
+      <input type="hidden" name="training[id]"
+        value="<?= $_training->getId() ?>">
+      <input type="submit" value="Remover">
+    </form>
+    <span><a href="/trainings/<?= $_training->getId() ?>">
+        <?= $_training->getName(); ?></a></span>
+  </li>
+  <?php endforeach ?>
+</ul>
+
+<?php $simpleForm->for($training, '/trainings', 'POST', function ($form) use ($training) { ?>
+
+<?= $form->inputFor('name', 'Nome') ?>
+<?= $form->submit('Adicionar') ?>
+
+
+<?php }) ?>

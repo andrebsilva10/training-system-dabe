@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Training System</title>
+</head>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/application.css">
+
+<body>
+  <?php if ($this->currentUser) : ?>
+  Olá <?= $this->currentUser->getName(); ?>
+  <a href="/logout">Sair</a> | <a href="/profile">Meu Perfil</a> | <a
+    href="/trainings">Meus Treinamentos</a>
+  <?php else : ?>
+  <a href="/login">Entrar</a> | <a href="/sign-up">Registrar-se</a>
+  <?php endif ?>
+
+  <hr>
+
+  <?php foreach (\App\Lib\Flash::message() as $type => $msg) : ?>
+  <div class="alert alert-<?= $type ?>" role="alert">
+    <?= $msg ?>
+  </div>
+  <? endforeach ?>
+
+  <?php require $view ?>
+</body>
+
+</html>

@@ -19,8 +19,8 @@ Route::get('/trainings/:id', [App\Controllers\TrainingsController::class, 'show'
 Route::post('/trainings',    [App\Controllers\TrainingsController::class, 'create']);
 Route::delete('/trainings',  [App\Controllers\TrainingsController::class, 'destroy']);
 
-Route::post('/trainings/:training_id/collaborators',        [App\Controllers\TrainingsCollaboratorsController::class, 'add']);
-Route::delete('/trainings/:training_id/collaborators/:id',  [App\Controllers\TrainingsCollaboratorsController::class, 'destroy']);
+#Route::post('/trainings/:training_id/collaborators',        [App\Controllers\TrainingsCollaboratorsController::class, 'add']);
+#Route::delete('/trainings/:training_id/collaborators/:id',  [App\Controllers\TrainingsCollaboratorsController::class, 'destroy']);
 
 Route::get('/admins/users',              [App\Controllers\Admins\UsersController::class, 'index']);
 Route::get('/admins/users/page/:page',   [App\Controllers\Admins\UsersController::class, 'index']);

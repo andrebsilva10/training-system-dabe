@@ -26,6 +26,12 @@ class Route
         self::$routes['POST'][$path]['action'] = $data[1];
     }
 
+    public static function put($path, $data)
+    {
+        self::$routes['PUT'][$path]['class'] = $data[0];
+        self::$routes['PUT'][$path]['action'] = $data[1];
+    }
+
     public static function load()
     {
         $method = $_REQUEST['_method'] ?? $_SERVER['REQUEST_METHOD'];

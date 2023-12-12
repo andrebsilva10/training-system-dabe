@@ -14,31 +14,57 @@ class TrainingsController extends BaseController
     {
         $this->authenticated();
 
-        $training = new Training();
-        $trainings = $this->currentUser()->trainings()->all();
+        $trainings = Training::all();
 
-        $this->render('trainings/index', compact('training', 'trainings'));
+        $this->render('trainings/index', compact('trainings'));
+    }
+
+    public function new()
+    {
+        $training = new Training();
+        $this->render('trainings/new', compact('training'));
     }
 
     public function show()
     {
         $this->authenticated();
 
-        $training_user = new TrainingUser();
-        $users = User::all();
+        $training = Training::findById($this->params[':id']);
 
-        $training = $this->currentUser()->trainings()->findByTrainingId($this->params[':id']);
+        $this->render('trainings/show', compact('training'));
+    }
 
-        $this->render('trainings/show', compact('training', 'training_user', 'users'));
+    public function edit()
+    {
+        $this->authenticated();
+
+        $training = Training::findById($this->params[':id']);
+
+        $this->render('trainings/edit', compact('training'));
+    }
+
+    public function update()
+    {
+        $this->authenticated();
+        $training = Training::findById($this->params[':id']);
+
+        $training->setName($this->params['training']['name']);
+
+        if ($training->save()) {
+            Flash::message('success', 'Treinamento atualizado com sucesso!');
+            $this->redirectTo('/trainings');
+        } else {
+            Flash::message('danger', 'Dados incorretos!');
+
+            $this->render('trainings/edit', compact('training')); // ['training' => $training]
+        }
     }
 
     public function create()
     {
         $this->authenticated();
 
-        $training = $this->currentUser()->trainings()->new(
-            name: $this->params['training']['name']
-        );
+        $training = new Training(name: $this->params['training']['name']);
 
         if ($training->save()) {
             Flash::message('success', 'Treinamento registrado com sucesso!');
@@ -46,11 +72,7 @@ class TrainingsController extends BaseController
         } else {
             Flash::message('danger', 'Dados incorretos!');
 
-            $trainings = $this->currentUser()->trainings()->all();
-            $this->render('trainings/index', [
-                'training' => $training,
-                'trainings' => $trainings
-            ]);
+            $this->render('trainings/new', compact('training')); // ['training' => $training]
         }
     }
 
@@ -59,7 +81,7 @@ class TrainingsController extends BaseController
         $this->authenticated();
 
         $training_id = $this->params['training']['id'];
-        $training = $this->currentUser()->trainings()->findByTrainingId($training_id);
+        $training = Training::findById($training_id);
 
         $training->destroy();
 

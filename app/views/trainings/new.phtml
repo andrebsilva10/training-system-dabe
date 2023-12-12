@@ -1,0 +1,12 @@
+<div class="d-flex justify-content-between">
+    <h1>Novo Treinamento</h1>
+
+    <div>
+        <a class="btn btn-outline-primary" href="/trainings">Todos treinamentos</a>
+    </div>
+</div>
+
+<?php $simpleForm->for($training, '/trainings', 'POST', function ($form) { ?>
+    <?= $form->inputFor('name', 'Nome') ?>
+    <?= $form->submit('Adicionar') ?>
+<?php }) ?>

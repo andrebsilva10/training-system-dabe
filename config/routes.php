@@ -14,10 +14,13 @@ Route::get('/logout',    [App\Controllers\AuthController::class, 'destroy']);
 Route::get('/profile',   [App\Controllers\ProfileController::class, 'show']);
 Route::post('/profile',  [App\Controllers\ProfileController::class, 'updateAvatar']);
 
-Route::get('/trainings',     [App\Controllers\TrainingsController::class, 'index']);
-Route::get('/trainings/:id', [App\Controllers\TrainingsController::class, 'show']);
-Route::post('/trainings',    [App\Controllers\TrainingsController::class, 'create']);
-Route::delete('/trainings',  [App\Controllers\TrainingsController::class, 'destroy']);
+Route::get('/trainings',          [App\Controllers\TrainingsController::class, 'index']);
+Route::get('/trainings/new',      [App\Controllers\TrainingsController::class, 'new']);
+Route::get('/trainings/:id',      [App\Controllers\TrainingsController::class, 'show']);
+Route::get('/trainings/:id/edit', [App\Controllers\TrainingsController::class, 'edit']);
+Route::put('/trainings/:id',      [App\Controllers\TrainingsController::class, 'update']);
+Route::post('/trainings',         [App\Controllers\TrainingsController::class, 'create']);
+Route::delete('/trainings',       [App\Controllers\TrainingsController::class, 'destroy']);
 
 #Route::post('/trainings/:training_id/collaborators',        [App\Controllers\TrainingsCollaboratorsController::class, 'add']);
 #Route::delete('/trainings/:training_id/collaborators/:id',  [App\Controllers\TrainingsCollaboratorsController::class, 'destroy']);

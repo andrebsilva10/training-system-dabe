@@ -7,12 +7,14 @@ use App\Lib\Validations;
 
 class Training extends Base
 {
-    private const DB_PATH = '../database/trainings.txt';
+    protected static string $table      = 'trainings';
+    protected static array  $attributes = ['name'];
 
-    private string $name;
-
-    public function __construct(string $name = '')
-    {
+    public function __construct(
+        $id = -1,
+        protected string $name = ''
+    ) {
+        parent::__construct($id);
         $this->name = trim($name);
     }
 
@@ -21,34 +23,13 @@ class Training extends Base
         return $this->name;
     }
 
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
     public function validates()
     {
         Validations::notEmpty($this->name, 'name', $this->errors);
-    }
-
-    public function save()
-    {
-        if ($this->isValid()) {
-            file_put_contents(
-                self::DB_PATH,
-                $this->name . PHP_EOL,
-                FILE_APPEND | LOCK_EX
-            );
-            return true;
-        }
-
-        return false;
-    }
-
-    public static function all()
-    {
-        $trainings = [];
-
-        $trainingsFromFile = file(self::DB_PATH, FILE_IGNORE_NEW_LINES);
-        foreach ($trainingsFromFile as $trainingName) {
-            $trainings[] = new Training($trainingName);
-        }
-
-        return $trainings;
     }
 }

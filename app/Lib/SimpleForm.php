@@ -3,6 +3,7 @@
 namespace App\Lib;
 
 use Closure;
+use Core\Routes\Route;
 use ReflectionClass;
 
 class SimpleForm
@@ -13,7 +14,8 @@ class SimpleForm
     {
         $this->object = $object;
 
-        echo "<form action='{$url}' method='{$method}'>";
+        echo "<form action='{$url}' method='{$this->httpMethod($method)}'>";
+        echo "<input type='hidden' name='_method' value='{$method}'>";
         $callBack($this);
         echo '</form>';
     }
@@ -21,13 +23,13 @@ class SimpleForm
     public function inputFor($attribute, $name, $type = 'text')
     {
         return <<<HTML
-            <div class="form-group">
-                <label for="{$this->id($attribute)}">{$name}</label>
+            <div class="form-floating mb-3">
                 <input id="{$this->id($attribute)}" 
                        type="{$type}"
                        value="{$this->getValue($attribute,$type)}"
                        name="{$this->name($attribute)}"
-                       class="{$this->classWhenError($attribute)}">
+                       class="{$this->classWhenError($attribute)} form-control" placeholder="{$name}">
+                <label for="{$this->id($attribute)}">{$name}</label>
                 <span class="invalid-feedback">{$this->object->errors($attribute)}</span>
             </div>
         HTML;
@@ -58,7 +60,9 @@ class SimpleForm
     public function submit($value)
     {
         return <<<HTML
-            <input type="submit" value="{$value}">
+            <div>
+                <input class="btn btn-primary" type="submit" value="{$value}">
+            </div>
         HTML;
     }
 
@@ -96,5 +100,13 @@ class SimpleForm
     private function classNameInSnakeCase()
     {
         return StringUtils::camelToSnakeCase($this->className());
+    }
+
+    private function httpMethod($method)
+    {
+        if ($method !== 'GET')
+            return 'POST';
+
+        return 'GET';
     }
 }

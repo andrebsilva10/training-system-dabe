@@ -79,9 +79,16 @@ abstract class Base
             $attributes = implode(', ', static::$attributes);
             $values = ':' . implode(', :', static::$attributes);
 
-            $sql = <<<SQL
-                INSERT INTO {$table} ({$attributes}) VALUES ({$values});
-            SQL;
+            // TODO: Fazer certo!
+            if ($this->newRecord()) {
+                $sql = <<<SQL
+                    INSERT INTO {$table} ({$attributes}) VALUES ({$values});
+                SQL;
+            } else {
+                $sql = <<<SQL
+                    UPDATE {$table} SET name = :name WHERE id = 1;
+                SQL;
+            }
 
             $stmt = $pdo->prepare($sql);
             foreach (static::$attributes as $attribute) {
@@ -173,13 +180,13 @@ abstract class Base
           SELECT id, {$attributes} FROM {$table}
         SQL;
 
-        if (!empty($conditions)) {
-            $sqlConditions = array_map(function ($column) {
-                return "{$column} = :{$column}";
-            }, array_keys($conditions));
+        // if (!empty($conditions)) {
+        $sqlConditions = array_map(function ($column) {
+            return "{$column} = :{$column}";
+        }, array_keys($conditions));
 
-            $sql .= " WHERE " . implode(' AND ', $sqlConditions);
-        }
+        $sql .= " WHERE " . implode(' AND ', $sqlConditions);
+        // }
 
         $pdo = Database::getDBConnection();
         $stmt = $pdo->prepare($sql);

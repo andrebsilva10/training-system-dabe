@@ -15,8 +15,7 @@ DROP TABLE IF EXISTS trainings;
 
 CREATE TABLE trainings (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE
+    name VARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS trainings_users;

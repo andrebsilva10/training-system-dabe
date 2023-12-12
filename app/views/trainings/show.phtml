@@ -1,39 +1,9 @@
-<h1><?= $training->getName() ?></h1>
+<div class="d-flex justify-content-between">
+  <h1>Visualizar Treinamento</h1>
 
-<h2>Colaboradores</h2>
+  <div>
+    <a class="btn btn-outline-primary" href="/trainings">Todos treinamentos</a>
+  </div>
+</div>
 
-<?php $simpleForm->for($training_user, "/trainings/{$training->getId()}/collaborators", 'POST', function ($form) use ($users) { ?>
-
-<?= $form->selectFor(attribute: 'user_id', name: 'Colaborador', prompt: 'Selecione', collection: $users) ?>
-<?= $form->submit('Adicionar') ?>
-
-<?php }) ?>
-
-<table>
-  <thead>
-    <th>ID</th>
-    <th>Nome</th>
-  </thead>
-  <tbody>
-    <?php foreach ($training->collaborators()->all() as $collaborator) : ?>
-    <tr>
-      <td><?= $collaborator->getId() ?></td>
-      <td><?= $collaborator->getName() ?></td>
-      <td>
-        <form
-          action="<?= "/trainings/{$training->getId()}/collaborators/{$collaborator->getId()}" ?>"
-          method="POST" class="form-inline">
-          <input type='hidden' name="_method" value='DELETE'>
-          <input type="submit" value="Remover">
-        </form>
-      </td>
-    </tr>
-    <?php endforeach; ?>
-  </tbody>
-</table>
-
-<hr>
-
-
-
-<a href="/trainings">Todos os treinamentos</a>
+<p><strong>Nome</strong>: <?= $training->getName() ?></p>

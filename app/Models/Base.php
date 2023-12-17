@@ -139,7 +139,7 @@ abstract class Base
         return ($stmt->rowCount() != 0);
     }
 
-    /*     public function update($data)
+    public function updateImage($data)
     {
         $table = static::$table;
         $sets = array_map(function ($column) {
@@ -162,7 +162,7 @@ abstract class Base
         $stmt->execute();
 
         return ($stmt->rowCount() !== 0);
-    } */
+    }
 
     public static function all()
     {
@@ -196,13 +196,11 @@ abstract class Base
           SELECT id, {$attributes} FROM {$table}
         SQL;
 
-        // if (!empty($conditions)) {
         $sqlConditions = array_map(function ($column) {
             return "{$column} = :{$column}";
         }, array_keys($conditions));
 
         $sql .= " WHERE " . implode(' AND ', $sqlConditions);
-        // }
 
         $pdo = Database::getDBConnection();
         $stmt = $pdo->prepare($sql);

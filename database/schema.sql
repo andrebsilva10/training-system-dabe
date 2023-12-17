@@ -8,7 +8,8 @@ CREATE TABLE users (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(65) NOT NULL,
-    avatar_name VARCHAR(65)
+    avatar_name VARCHAR(65),
+    is_admin BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 DROP TABLE IF EXISTS trainings;

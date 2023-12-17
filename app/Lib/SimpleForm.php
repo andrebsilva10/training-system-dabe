@@ -24,16 +24,35 @@ class SimpleForm
     {
         return <<<HTML
             <div class="form-floating mb-3">
-                <input id="{$this->id($attribute)}" 
+                <input id="{$this->id($attribute)}"
                        type="{$type}"
                        value="{$this->getValue($attribute,$type)}"
                        name="{$this->name($attribute)}"
-                       class="{$this->classWhenError($attribute)} form-control" placeholder="{$name}">
-                <label for="{$this->id($attribute)}">{$name}</label>
+                       class="form-control {$this->classWhenError($attribute)}" placeholder="{$name}">
+                <label for="{$this->id($attribute)}" class="form-label">{$name}</label>
                 <span class="invalid-feedback">{$this->object->errors($attribute)}</span>
             </div>
         HTML;
     }
+
+    public function checkboxFor($attribute, $name, $checked = false)
+    {
+        $checkedAttribute = $checked ? 'checked' : '';
+
+        return <<<HTML
+            <div class="form-check mb-2">
+                <input id="{$this->id($attribute)}"
+                        type="checkbox"
+                        name="{$this->name($attribute)}"
+                        class="form-check-input"
+                        value="true"
+                        {$checkedAttribute}
+                        />
+                <label for="{$this->id($attribute)}" class="form-check-label">{$name}</label>
+            </div>
+        HTML;
+    }
+
 
     public function selectFor($attribute, $name, $prompt, $collection)
     {
@@ -46,7 +65,7 @@ class SimpleForm
         return <<<HTML
             <div class="form-group">
                 <label for="{$this->id($attribute)}">{$name}</label>
-                <select 
+                <select
                     name="{$this->name($attribute)}" id="{$this->id($attribute)}"
                     class="{$this->classWhenError($attribute)}"
                     >

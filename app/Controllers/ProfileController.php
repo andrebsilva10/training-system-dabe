@@ -18,7 +18,7 @@ class ProfileController extends BaseController
     {
         $image = $_FILES['user_avatar'];
 
-        $this->currentUser()->avatar()->update($image);
+        $this->currentUser()->avatar()->updateImage($image);
         $this->redirectTo('/profile');
     }
 }

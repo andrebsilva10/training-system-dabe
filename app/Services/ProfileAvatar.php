@@ -20,12 +20,12 @@ class ProfileAvatar
         return '/assets/defaults/users/avatar.png';
     }
 
-    public function update($image)
+    public function updateImage($image)
     {
         $this->image = $image;
 
         if (!empty($this->getTmpFilePath())) {
-            $this->model->update(['avatar_name' => $this->getFileName()]);
+            $this->model->updateImage(['avatar_name' => $this->getFileName()]);
             move_uploaded_file($this->getTmpFilePath(), $this->getAbsoluteFilePath());
         }
     }

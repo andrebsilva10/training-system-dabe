@@ -21,6 +21,8 @@ class TrainingsController extends BaseController
 
     public function new()
     {
+        $this->authenticated();
+
         $training = new Training();
         $this->render('trainings/new', compact('training'));
     }

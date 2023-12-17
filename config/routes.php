@@ -4,8 +4,8 @@ use Core\Routes\Route;
 
 Route::get('/',          [App\Controllers\AuthController::class, 'new']);
 
-Route::get('/sign-up',   [App\Controllers\UsersController::class, 'new']);
-Route::post('/sign-up',  [App\Controllers\UsersController::class, 'create']);
+Route::get('/register',   [App\Controllers\UsersController::class, 'new']);
+Route::post('/register',  [App\Controllers\UsersController::class, 'create']);
 
 Route::get('/login',     [App\Controllers\AuthController::class, 'new']);
 Route::post('/login',    [App\Controllers\AuthController::class, 'create']);
@@ -24,6 +24,8 @@ Route::delete('/trainings',       [App\Controllers\TrainingsController::class, '
 
 #Route::post('/trainings/:training_id/collaborators',        [App\Controllers\TrainingsCollaboratorsController::class, 'add']);
 #Route::delete('/trainings/:training_id/collaborators/:id',  [App\Controllers\TrainingsCollaboratorsController::class, 'destroy']);
+#Route::get('/associate', [App\Controllers\TrainingsCollaboratorsController::class, 'index']);
+
 
 Route::get('/admins/users',              [App\Controllers\Admins\UsersController::class, 'index']);
 Route::get('/admins/users/page/:page',   [App\Controllers\Admins\UsersController::class, 'index']);

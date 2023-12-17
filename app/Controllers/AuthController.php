@@ -24,7 +24,11 @@ class AuthController extends BaseController
             Flash::message('success', 'Login realizado com sucesso!');
             $_SESSION['user']['id'] = $user->getId();
 
-            $this->redirectTo('/trainings');
+            if ($user->isAdmin()) {
+                $this->redirectTo('/admins/users');
+            } else {
+                $this->redirectTo('/trainings');
+            }
         } else {
             Flash::message('danger', 'Email e/ou senha inválidos!');
             $this->redirectTo('/login');

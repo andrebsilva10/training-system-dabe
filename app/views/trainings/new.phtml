@@ -1,12 +1,19 @@
-<div class="d-flex justify-content-between">
-    <h1>Novo Treinamento</h1>
+<main>
+    <div class="container col-11 col-md-9" id="form-container">
+        <div class="row align-items-center gx-5">
+            <div class="col-md-6 order-md-2">
+                <h2>Novo Treinamento</h2>
+                <?php $simpleForm->for($training, '/trainings', 'POST', function ($form) { ?>
+                    <?= $form->inputFor('name', 'Nome') ?>
+                    <?= $form->submit('Adicionar') ?>
+                <?php }) ?>
+            </div>
 
-    <div>
-        <a class="btn btn-outline-primary" href="/trainings">Todos treinamentos</a>
+            <div class="col-md-6 order-md-1">
+                <div class="col-12">
+                    <img src="/assets/images/sign_in.svg" alt="Entrar no sistema" class="img-fluid" />
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-
-<?php $simpleForm->for($training, '/trainings', 'POST', function ($form) { ?>
-    <?= $form->inputFor('name', 'Nome') ?>
-    <?= $form->submit('Adicionar') ?>
-<?php }) ?>
+</main>

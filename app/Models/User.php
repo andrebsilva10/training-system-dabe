@@ -55,15 +55,13 @@ class User extends Base
         Validations::notEmpty($this->name, 'name', $this->errors);
         Validations::notEmpty($this->email, 'email', $this->errors);
         Validations::notEmpty($this->password, 'password', $this->errors);
-
-        /*  if (Validations::passwordConfirmation(
+        Validations::passwordConfirmation(
             $this->password,
             $this->password_confirmation,
             'password',
             $this->errors
-        )) {
-            $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-        } */
+        );
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
     }
 
     public function authenticate(string $password)

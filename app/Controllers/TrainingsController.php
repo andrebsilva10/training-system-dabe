@@ -58,7 +58,7 @@ class TrainingsController extends BaseController
         } else {
             Flash::message('danger', 'Dados incorretos!');
 
-            $this->render('trainings/edit', compact('training')); // ['training' => $training]
+            $this->render('trainings/edit', compact('training'));
         }
     }
 
@@ -74,7 +74,7 @@ class TrainingsController extends BaseController
         } else {
             Flash::message('danger', 'Dados incorretos!');
 
-            $this->render('trainings/new', compact('training')); // ['training' => $training]
+            $this->render('trainings/new', compact('training'));
         }
     }
 

@@ -1,43 +1,39 @@
 <div class="d-flex justify-content-between">
-  <h1>Lista de Treinamentos</h1>
+    <h1>Lista de Treinamentos</h1>
 
-  <a class="btn btn-primary btn-sm" href="/trainings/new">
-    Novo Treinamento
-  </a>
+    <a class="btn btn-primary btn-sm" href="/trainings/new">
+        Novo Treinamento
+    </a>
 </div>
 
 <table class="table table-striped">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Nome</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($trainings as $training) : ?>
-    <tr>
-      <th><?= $training->getId() ?></th>
-      <td>
-        <a href="/trainings/<?= $training->getId() ?>">
-          <?= $training->getName(); ?>
-        </a>
-      </td>
-      <td class="d-flex justify-content-end gap-3">
-        <a href="/trainings/<?= $training->getId() ?>/edit"
-          class="btn btn-secondary btn-sm">
-          Editar
-        </a>
-        <form action="/trainings" method="POST" class="form-inline">
-          <input type='hidden' name="_method" value='DELETE'>
-          <input type="hidden" name="training[id]"
-            value="<?= $training->getId() ?>">
-          <input type="submit" value="Remover" class="btn btn-danger btn-sm"
-            onclick="confirm('Tem certeza?');">
-        </form>
-      </td>
-    </tr
->
-    <?php endforeach ?>
-  </tbody>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($trainings as $training) : ?>
+            <tr>
+                <th><?= $training->getId() ?></th>
+                <td>
+                    <a href="/trainings/<?= $training->getId() ?>">
+                        <?= $training->getName(); ?>
+                    </a>
+                </td>
+                <td class="d-flex justify-content-end gap-3">
+                    <a href="/trainings/<?= $training->getId() ?>/edit" class="btn btn-secondary btn-sm">
+                        Editar
+                    </a>
+                    <form action="/trainings" method="POST" class="form-inline">
+                        <input type='hidden' name="_method" value='DELETE'>
+                        <input type="hidden" name="training[id]" value="<?= $training->getId() ?>">
+                        <input type="submit" value="Remover" class="btn btn-danger btn-sm" onclick="confirm('Tem certeza?') ? true : false">
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach ?>
+    </tbody>
 </table>

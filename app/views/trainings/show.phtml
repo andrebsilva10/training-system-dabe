@@ -1,9 +1,17 @@
 <div class="d-flex justify-content-between">
-  <h1>Visualizar Treinamento</h1>
+    <h1>Visualizar Treinamento</h1>
 
-  <div>
-    <a class="btn btn-outline-primary" href="/trainings">Todos treinamentos</a>
-  </div>
+    <div>
+        <a class="btn btn-outline-primary" href="/trainings">Todos treinamentos</a>
+    </div>
 </div>
 
 <p><strong>Nome</strong>: <?= $training->getName() ?></p>
+
+<h2>Usuários</h2>
+
+<ul>
+    <?php foreach ($this->users as $user) : ?>
+        <li><?= $user->getName() ?></li>
+    <?php endforeach ?>
+</ul>

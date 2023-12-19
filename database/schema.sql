@@ -28,6 +28,7 @@ CREATE TABLE trainings_users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     training_id INT NOT NULL,
+    status VARCHAR(255) NOT NULL,
 
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT,
     FOREIGN KEY (training_id) REFERENCES trainings(id) ON DELETE RESTRICT

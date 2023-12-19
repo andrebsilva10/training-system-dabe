@@ -24,13 +24,13 @@ INSERT INTO trainings (name, training_category_id) VALUES ('Finanças Pessoais: 
 INSERT INTO trainings (name, training_category_id) VALUES ('Liderança Transformacional', 9);
 INSERT INTO trainings (name, training_category_id) VALUES ('Introdução à Inteligência Artificial', 10);
 
-INSERT INTO trainings_users (user_id, training_id) VALUES (1, 1);
-INSERT INTO trainings_users (user_id, training_id) VALUES (2, 2);
-INSERT INTO trainings_users (user_id, training_id) VALUES (3, 3);
-INSERT INTO trainings_users (user_id, training_id) VALUES (1, 4);
-INSERT INTO trainings_users (user_id, training_id) VALUES (2, 5);
-INSERT INTO trainings_users (user_id, training_id) VALUES (3, 6);
-INSERT INTO trainings_users (user_id, training_id) VALUES (1, 7);
-INSERT INTO trainings_users (user_id, training_id) VALUES (2, 8);
-INSERT INTO trainings_users (user_id, training_id) VALUES (3, 9);
-INSERT INTO trainings_users (user_id, training_id) VALUES (1, 10);
+INSERT INTO trainings_users (user_id, training_id, status) VALUES (1, 1, 'Pendente');
+INSERT INTO trainings_users (user_id, training_id, status) VALUES (2, 2, 'Pendente');
+INSERT INTO trainings_users (user_id, training_id, status) VALUES (3, 3, 'Em andamento');
+INSERT INTO trainings_users (user_id, training_id, status) VALUES (1, 4, 'Pendente');
+INSERT INTO trainings_users (user_id, training_id, status) VALUES (2, 5, 'Pendente');
+INSERT INTO trainings_users (user_id, training_id, status) VALUES (3, 6, 'Concluído');
+INSERT INTO trainings_users (user_id, training_id, status) VALUES (1, 7, 'Pendente');
+INSERT INTO trainings_users (user_id, training_id, status) VALUES (2, 8, 'Pendente');
+INSERT INTO trainings_users (user_id, training_id, status) VALUES (3, 9, 'Em andamento');
+INSERT INTO trainings_users (user_id, training_id, status) VALUES (1, 10, 'Pendente');

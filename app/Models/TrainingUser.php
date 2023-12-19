@@ -9,12 +9,13 @@ use Core\Db\Database;
 class TrainingUser extends Base
 {
     protected static string $table =      'trainings_users';
-    protected static array  $attributes = ['training_id', 'user_id'];
+    protected static array  $attributes = ['training_id', 'user_id', 'status'];
 
     public function __construct(
         $id = -1,
         protected $training_id = -1,
-        protected $user_id = -1
+        protected $user_id = -1,
+        protected $status = 'Pendente'
     ) {
         parent::__construct($id);
     }
@@ -37,6 +38,11 @@ class TrainingUser extends Base
     public function getTraining()
     {
         return Training::findById($this->getTrainingId());
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     public function validates()

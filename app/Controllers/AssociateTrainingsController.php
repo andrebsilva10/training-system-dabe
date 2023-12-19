@@ -24,14 +24,14 @@ class AssociateTrainingsController extends BaseController
     {
         $this->authenticated();
         $user_id = $this->params['user']['user_id'];
-        $training_id = $this->params['training_user']['training_id'];
+        $training_id = $this->params['training']['training_id'];
 
-        if (TrainingUser::isAlreadyAssociateTrainingsd($user_id, $training_id)) {
+        if (TrainingUser::isAlreadyAssociateTrainings($user_id, $training_id)) {
             Flash::message('danger', 'Treinamento já vinculado a este colaborador.');
             $this->redirectTo('/associateTrainings');
         }
 
-        $trainingUser = new TrainingUser(null, $training_id, $user_id);
+        $trainingUser = new TrainingUser(-1, $training_id, $user_id);
 
         if ($trainingUser->save()) {
             Flash::message('success', 'Colaborador vinculado com sucesso.');
@@ -46,7 +46,7 @@ class AssociateTrainingsController extends BaseController
     {
         $this->authenticated();
 
-        $trainingUser_id = $this->params['trainings_users']['id'];
+        $trainingUser_id = $this->params['training_user']['id'];
         $trainingUser = TrainingUser::findById($trainingUser_id);
 
         $trainingUser->destroy();

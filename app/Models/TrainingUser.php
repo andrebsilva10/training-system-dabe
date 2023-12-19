@@ -12,7 +12,7 @@ class TrainingUser extends Base
     protected static array  $attributes = ['training_id', 'user_id'];
 
     public function __construct(
-        protected $id = -1,
+        $id = -1,
         protected $training_id = -1,
         protected $user_id = -1
     ) {
@@ -45,7 +45,7 @@ class TrainingUser extends Base
         Validations::uniqueness(['user_id', 'training_id'], $this);
     }
 
-    public static function isAlreadyAssociateTrainingsd($user_id, $training_id)
+    public static function isAlreadyAssociateTrainings($user_id, $training_id)
     {
         $table = static::$table;
         $sql = "SELECT COUNT(*) FROM {$table} WHERE user_id = :user_id AND training_id = :training_id";

@@ -3,10 +3,23 @@
         <div class="row align-items-center gx-5">
             <div class="col-md-6 order-md-2">
                 <h2>Novo Treinamento</h2>
-                <?php $simpleForm->for($training, '/trainings', 'POST', function ($form) { ?>
-                    <?= $form->inputFor('name', 'Nome') ?>
-                    <?= $form->submit('Adicionar') ?>
-                <?php }) ?>
+                <form action="/trainings" method="POST" class="">
+                    <div class="form-floating mb-3">
+                        <input id="training_name" type="text" name="training[name]" class="form-control " placeholder="Nome">
+                        <label for="training_name" class="form-label">Nome</label>
+                        <span class="invalid-feedback"></span>
+                    </div>
+                    <label class="mb-2" for="trainings_category_id">Categoria</label>
+                    <select class="form-select" id="training_category_id" aria-label="Nome da Categoria" name="training[training_category_id]">
+                        <option selected disabled>Selecione a Categoria</option>
+
+                        <?php foreach ($trainings_category as $trainings_category) { ?>
+                            <option value="<?= $trainings_category->getId() ?>">
+                                <?= $trainings_category->getname() ?></option>
+                        <?php } ?>
+                    </select>
+                    <input class="btn btn-primary" type="submit" value="Adicionar">
+                </form>
             </div>
 
             <div class="col-md-6 order-md-1">

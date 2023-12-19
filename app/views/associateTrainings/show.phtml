@@ -1,7 +1,7 @@
 <div class="col-11 col-md-9" id="form-container">
     <div class="row gx-5">
         <h2>Vincular Colaborador ao Treinamento</h2>
-        <form action="/associateTrainings" method="POST" class="text-center">
+        <form action="/associateTrainings" method="POST" class="text-center mb-5">
             <div class="col-12 d-md-flex justify-content-between text-start">
                 <div class="mb-3 col-5">
                     <label class="mb-2" for="user_id">Colaborador</label>
@@ -19,7 +19,7 @@
 
                 <div class="mb-3 col-5">
                     <label class="mb-2" for="training_id">Treinamento</label>
-                    <select class="form-select" id="training_id" aria-label="Nome do Treinamento" name="training_user[training_id]">
+                    <select class="form-select" id="training_id" aria-label="Nome do Treinamento" name="training[training_id]">
                         <option selected disabled>Selecione o Treinamento
                         </option>
                         <?php foreach ($training as $training) { ?>
@@ -51,7 +51,7 @@
                         <td>
                             <form action="/associateTrainings" method="POST" class="form-inline">
                                 <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="trainings_users[id]" value="<?= $training_user->getId() ?>">
+                                <input type="hidden" name="training_user[id]" value="<?= $training_user->getId() ?>">
                                 <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                             </form>
                         </td>

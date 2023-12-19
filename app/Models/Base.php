@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Lib\Paginator;
+use App\Lib\StringUtils;
 use Core\Db\Database;
 use PDO;
 
@@ -89,6 +90,11 @@ abstract class Base
                 }
 
                 $stmt->execute();
+                $rowCount = $stmt->rowCount();
+
+                if ($rowCount == 0) {
+                    return false;
+                }
 
                 $this->setId($pdo->lastInsertId());
 
@@ -96,13 +102,14 @@ abstract class Base
             } else {
                 $data = [];
                 foreach (static::$attributes as $value) {
-                    $method = "get{$value}";
+                    $nameMethod = StringUtils::snakeToCamelCase($value);
+                    $method = "get{$nameMethod}";
                     $data[$value] = $this->$method();
                 }
 
-                self::update($data);
+                $rowCount = self::update($data);
 
-                return true;
+                return $rowCount != 0;
             }
         }
 

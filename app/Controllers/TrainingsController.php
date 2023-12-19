@@ -4,9 +4,8 @@ namespace App\Controllers;
 
 use App\Lib\Flash;
 use App\Models\Training;
-use App\Models\TrainingUser;
-use App\Models\User;
-use Core\Debug\Debug;
+use App\Models\TrainingsCategory;
+
 
 class TrainingsController extends BaseController
 {
@@ -15,16 +14,18 @@ class TrainingsController extends BaseController
         $this->authenticated();
 
         $trainings = Training::all();
+        $trainings_category = TrainingsCategory::all();
 
-        $this->render('trainings/index', compact('trainings'));
+        $this->render('trainings/index', compact('trainings', 'trainings_category'));
     }
 
     public function new()
     {
         $this->authenticated();
 
-        $training = new Training();
-        $this->render('trainings/new', compact('training'));
+        $trainings_category = TrainingsCategory::all();
+
+        $this->render('trainings/new', compact('trainings_category'));
     }
 
     public function show()
@@ -32,8 +33,9 @@ class TrainingsController extends BaseController
         $this->authenticated();
 
         $training = Training::findById($this->params[':id']);
+        $users = $training->collaborators();
 
-        $this->render('trainings/show', compact('training'));
+        $this->render('trainings/show', compact('training', 'users'));
     }
 
     public function edit()
@@ -66,15 +68,20 @@ class TrainingsController extends BaseController
     {
         $this->authenticated();
 
-        $training = new Training(name: $this->params['training']['name']);
+        $training_category_id = $this->params['training']['training_category_id'];
+        $training = new Training(
+            -1,
+            $this->params['training']['name'],
+            $training_category_id
+        );
 
         if ($training->save()) {
-            Flash::message('success', 'Treinamento registrado com sucesso!');
+            Flash::message('success', 'Treinamento cadastrado com sucesso!');
             $this->redirectTo('/trainings');
         } else {
             Flash::message('danger', 'Dados incorretos!');
 
-            $this->render('trainings/new', compact('training'));
+            $this->redirectTo('/trainings/new');
         }
     }
 
@@ -83,6 +90,7 @@ class TrainingsController extends BaseController
         $this->authenticated();
 
         $training_id = $this->params['training']['id'];
+
         $training = Training::findById($training_id);
 
         $training->destroy();

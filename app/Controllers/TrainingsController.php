@@ -52,7 +52,7 @@ class TrainingsController extends BaseController
 
         $training->setName($this->params['training']['name']);
 
-        if ($training->update()) {
+        if ($training->save()) {
             Flash::message('success', 'Treinamento atualizado com sucesso!');
             $this->redirectTo('/trainings');
         } else {

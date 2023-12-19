@@ -25,7 +25,7 @@ class ProfileAvatar
         $this->image = $image;
 
         if (!empty($this->getTmpFilePath())) {
-            $this->model->updateImage(['avatar_name' => $this->getFileName()]);
+            $this->model->update(['avatar_name' => $this->getFileName()]);
             move_uploaded_file($this->getTmpFilePath(), $this->getAbsoluteFilePath());
         }
     }

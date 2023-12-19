@@ -73,52 +73,40 @@ abstract class Base
     public function save()
     {
         if ($this->isValid()) {
-            $pdo = Database::getDBConnection();
+            if ($this->newRecord()) {
+                $pdo = Database::getDBConnection();
 
-            $table = static::$table;
-            $attributes = implode(', ', static::$attributes);
-            $values = ':' . implode(', :', static::$attributes);
-            $sql = <<<SQL
+                $table = static::$table;
+                $attributes = implode(', ', static::$attributes);
+                $values = ':' . implode(', :', static::$attributes);
+                $sql = <<<SQL
                 INSERT INTO {$table} ({$attributes}) VALUES ({$values});
             SQL;
 
-            $stmt = $pdo->prepare($sql);
-            foreach (static::$attributes as $attribute) {
-                $stmt->bindValue($attribute, $this->$attribute);
+                $stmt = $pdo->prepare($sql);
+                foreach (static::$attributes as $attribute) {
+                    $stmt->bindValue($attribute, $this->$attribute);
+                }
+
+                $stmt->execute();
+
+                $this->setId($pdo->lastInsertId());
+
+                return true;
+            } else {
+                $data = [];
+                foreach (static::$attributes as $value) {
+                    $method = "get{$value}";
+                    $data[$value] = $this->$method();
+                }
+
+                self::update($data);
+
+                return true;
             }
-
-            $stmt->execute();
-
-            $this->setId($pdo->lastInsertId());
-
-            return true;
         }
 
         return false;
-    }
-
-    public function update()
-    {
-        $pdo = Database::getDBConnection();
-
-        $table = static::$table;
-        $attributes = implode(', ', static::$attributes);
-        $values = ':' . implode(', :', static::$attributes);
-
-        $sql = <<<SQL
-            UPDATE {$table} SET $attributes = $values WHERE id = :id;
-        SQL;
-
-        $stmt = $pdo->prepare($sql);
-        foreach (static::$attributes as $attribute) {
-            $stmt->bindValue($attribute, $this->$attribute);
-        }
-
-        $stmt->bindValue('id', $this->getId());
-
-        $stmt->execute();
-
-        return true;
     }
 
     public function destroy()
@@ -139,7 +127,7 @@ abstract class Base
         return ($stmt->rowCount() != 0);
     }
 
-    public function updateImage($data)
+    public function update($data)
     {
         $table = static::$table;
         $sets = array_map(function ($column) {

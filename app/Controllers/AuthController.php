@@ -10,7 +10,7 @@ class AuthController extends BaseController
 {
     public function new()
     {
-        $this->render('auth/login');
+        $this->currentUser() ? $this->redirectTo('/') : $this->render('auth/login');
     }
 
     public function create()
@@ -24,11 +24,8 @@ class AuthController extends BaseController
             Flash::message('success', 'Login realizado com sucesso!');
             $_SESSION['user']['id'] = $user->getId();
 
-            if ($user->isAdmin()) {
-                $this->redirectTo('/admins/users');
-            } else {
-                $this->redirectTo('/trainings/show');
-            }
+            $this->redirectTo('/');
+
         } else {
             Flash::message('danger', 'Email e/ou senha inválidos!');
             $this->redirectTo('/login');
@@ -37,6 +34,7 @@ class AuthController extends BaseController
 
     public function destroy()
     {
+        $this->authenticated();
         unset($_SESSION['user']['id']);
         Flash::message('success', 'Logout realizado com sucesso!');
         $this->redirectTo('/login');

@@ -1,7 +1,7 @@
 <div class="col-11 col-md-9" id="form-container">
     <div class="row gx-5">
         <h2>Vincular Colaborador ao Treinamento</h2>
-        <form action="/associateTrainings" method="POST" class="text-center mb-5">
+        <form action="/trainingUser" method="POST" class="text-center mb-5">
             <div class="col-12 d-md-flex justify-content-between text-start">
                 <div class="mb-3 col-5">
                     <label class="mb-2 form-label" for="user_id">Colaborador</label>
@@ -51,7 +51,7 @@
                         <td><?= $training_user->getTraining()->getName() ?></td>
                         <td><?= $training_user->getStatus() ?></td>
                         <td>
-                            <form action="/associateTrainings" method="POST">
+                            <form action="/trainingUser" method="POST">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="training_user[id]" value="<?= $training_user->getId() ?>">
                                 <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>

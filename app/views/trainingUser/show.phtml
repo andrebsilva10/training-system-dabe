@@ -13,13 +13,16 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($trainings as $training) : ?>
+            <tbody>
+                <?php foreach ($training as $trainingUser) : ?>
                     <tr>
-                        <th><?= $training->getId() ?></th>
-                        <td><?= $training->getName(); ?></td>
-                        <!-- EXIBIR O STATUS AQUI -->
+                        <th><?= $trainingUser->getTraining()->getId() ?></th>
+                        <td><?= $trainingUser->getTraining()->getName(); ?></td>
+                        <td><?= $trainingUser->getStatus(); ?></td>
+                        <td><a href="/trainingUser/<?= $trainingUser->getId() ?>/edit" class="btn btn-outline-primary mt-0">Editar</a>
+                        </td>
                     </tr>
-                <?php endforeach ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

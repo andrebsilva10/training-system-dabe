@@ -12,6 +12,7 @@ class UsersController extends BaseController
     public function index()
     {
         $this->authenticated();
+        $this->isAdmin();
 
         $page = isset($this->params[':page']) ? $this->params[':page'] : 1;
         $paginator = User::paginator(page: $page, per_page: 5);

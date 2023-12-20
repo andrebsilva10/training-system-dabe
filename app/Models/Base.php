@@ -108,7 +108,6 @@ abstract class Base
                 }
 
                 $rowCount = self::update($data);
-
                 return $rowCount != 0;
             }
         }

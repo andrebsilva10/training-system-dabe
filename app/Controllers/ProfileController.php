@@ -16,6 +16,7 @@ class ProfileController extends BaseController
 
     public function updateAvatar()
     {
+        $this->authenticated();
         $image = $_FILES['user_avatar'];
 
         $this->currentUser()->avatar()->updateImage($image);

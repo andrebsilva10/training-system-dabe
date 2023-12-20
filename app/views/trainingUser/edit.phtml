@@ -1,0 +1,17 @@
+<div class="container col-11 col-md-9" id="form-container">
+    <div class="d-flex justify-content-between">
+        <h2>Editar Treinamento</h2>
+    </div>
+
+    <form action="/trainingUser/<?= $training->getId() ?>" method="POST">
+        <input type='hidden' name='_method' value="PUT">
+
+        <p>Nome: <?= $training->getName() ?></p>
+        <select class="form-select" id="trainings_users_status" aria-label="Status do Treinamento" name="trainings_users[status]">
+            <option selected disabled value="">Selecione o status</option>
+            <option value="Pendente">Pendente</option>
+            <option value="Em andamento">Em andamento</option>
+            <option value="Concluído">Concluído</option>
+        </select>
+        <input class="btn btn-primary" type="submit" value="Salvar">
+</div>

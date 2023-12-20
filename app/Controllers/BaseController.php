@@ -48,4 +48,12 @@ class BaseController
             $this->redirectTo('/login');
         }
     }
+
+    public function isAdmin()
+    {
+        if (!$this->currentUser()->isAdmin()) {
+            Flash::message('danger', 'Você não tem permissão para acessar essa página');
+            $this->redirectTo('/');
+        }
+    }
 }

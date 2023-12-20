@@ -8,6 +8,6 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        $this->render('home/index');
+        $this->currentUser() ? $this->render('home/index') : $this->redirectTo('/login');
     }
 }

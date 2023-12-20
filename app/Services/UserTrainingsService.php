@@ -11,7 +11,7 @@ use PDO;
 class UserTrainingsService
 {
 
-    public function __construct(
+/*     public function __construct(
         private User $user
     ) {
     }
@@ -57,5 +57,5 @@ class UserTrainingsService
             user_id: $this->user->getId(),
             training_id: $training_id
         );
-    }
+    } */
 }

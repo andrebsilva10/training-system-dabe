@@ -46,13 +46,19 @@ class TrainingUser extends Base
         return $this->status;
     }
 
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+
     public function validates()
     {
         Validations::notEmpty($this->user_id, 'user_id', $this->errors);
         Validations::uniqueness(['user_id', 'training_id'], $this);
     }
 
-    public static function isAlreadyAssociateTrainings($user_id, $training_id)
+    public static function isAlreadyTrainingUser($user_id, $training_id)
     {
         $table = static::$table;
         $sql = "SELECT COUNT(*) FROM {$table} WHERE user_id = :user_id AND training_id = :training_id";
@@ -65,31 +71,5 @@ class TrainingUser extends Base
         $stmt->execute();
 
         return ($stmt->fetchColumn() > 0);
-    }
-
-    public function collaborators()
-    {
-        $users = [];
-        $sql = <<<SQL
-            use training_system_development;
-            SELECT
-                u.id,
-                u.name,
-                u.email
-            FROM users u, training_users tu
-            WHERE u.id = tu.user_id
-            AND tu.training_id = :training_id;
-        SQL;
-        $pdo = Database::getConnection();
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':training_id', $this->getTrainingId());
-        $stmt->execute();
-        $resp = $stmt->fetchAll(PDO::FETCH_NUM);
-
-        foreach ($resp as $row) {
-            $resp[] = new User(...$row);
-        }
-
-        return $users;
     }
 }

@@ -1,12 +1,10 @@
-<div class="d-flex justify-content-between">
-    <h1>Editar Treinamento</h1>
-
-    <div>
-        <a class="btn btn-outline-primary" href="/trainings">Todos treinamentos</a>
+<div class="container col-11 col-md-9" id="form-container">
+    <div class="d-flex justify-content-between">
+        <h2>Editar Treinamento</h2>
     </div>
-</div>
 
-<?php $simpleForm->for($training, "/trainings/{$training->getId()}", 'PUT', function ($form) { ?>
-    <?= $form->inputFor('name', 'Nome') ?>
-    <?= $form->submit('Atualizar') ?>
-<?php }) ?>
+    <?php $simpleForm->for($training, "/trainings/{$training->getId()}", 'PUT', function ($form) { ?>
+        <?= $form->inputFor('name', 'Nome') ?>
+        <?= $form->submit('Salvar') ?>
+    <?php }) ?>
+</div>

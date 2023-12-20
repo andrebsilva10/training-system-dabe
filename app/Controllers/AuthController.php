@@ -27,7 +27,7 @@ class AuthController extends BaseController
             if ($user->isAdmin()) {
                 $this->redirectTo('/admins/users');
             } else {
-                $this->redirectTo('/trainings');
+                $this->redirectTo('/trainings/show');
             }
         } else {
             Flash::message('danger', 'Email e/ou senha inválidos!');

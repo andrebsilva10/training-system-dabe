@@ -4,9 +4,9 @@
         <form action="/associateTrainings" method="POST" class="text-center mb-5">
             <div class="col-12 d-md-flex justify-content-between text-start">
                 <div class="mb-3 col-5">
-                    <label class="mb-2" for="user_id">Colaborador</label>
+                    <label class="mb-2 form-label" for="user_id">Colaborador</label>
                     <select class="form-select" id="user_id" aria-label=" Nome do Colaborador" name="user[user_id]">
-                        <option selected disabled>Selecione o Colaborador
+                        <option selected disabled value="">Selecione o Colaborador
                         </option>
 
                         <?php
@@ -18,9 +18,9 @@
                 </div>
 
                 <div class="mb-3 col-5">
-                    <label class="mb-2" for="training_id">Treinamento</label>
+                    <label class="mb-2 form-label" for="training_id">Treinamento</label>
                     <select class="form-select" id="training_id" aria-label="Nome do Treinamento" name="training[training_id]">
-                        <option selected disabled>Selecione o Treinamento
+                        <option selected disabled value="">Selecione o Treinamento
                         </option>
                         <?php foreach ($training as $training) { ?>
                             <option value="<?= $training->getId() ?>">
@@ -29,7 +29,7 @@
                     </select>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Vincular</button>
+            <button type="submit" class="btn btn-primary w-25" id="btn-associate">Vincular</button>
         </form>
     </div>
 
@@ -51,7 +51,7 @@
                         <td><?= $training_user->getTraining()->getName() ?></td>
                         <td><?= $training_user->getStatus() ?></td>
                         <td>
-                            <form action="/associateTrainings" method="POST" class="form-inline">
+                            <form action="/associateTrainings" method="POST">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="training_user[id]" value="<?= $training_user->getId() ?>">
                                 <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>

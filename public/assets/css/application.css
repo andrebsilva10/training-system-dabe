@@ -23,7 +23,7 @@ nav a:hover {
     transition: all .3s;
 }
 
-i {
+.bi.bi-chevron-right {
     color: #40E0D0;
 }
 
@@ -62,7 +62,7 @@ body {
 }
 
 #form-container a:hover {
-    color: #6c63ff;
+    color: #40E0D0;
 }
 
 #form-container .form-control {
@@ -84,20 +84,55 @@ body {
     color: #222;
 }
 
-#form-container input[type="submit"],
-#form-container input[type="checkbox"]:checked {
-    background-color: #6c63ff;
-    border-color: #6c63ff;
+.pagination a,
+#btn-associate,
+#form-container input[type="submit"]:not([value="Remover"], [value="Cancelar"]) {
+    background-color: #40E0D0;
+    border-color: #40E0D0;
+    color: #fff!important;
 }
 
+#form-container input[type="checkbox"]:checked {
+    background-color: #40E0D0;
+    border-color: #40E0D0;
+}
+
+.btn{
+    transition: 0.5s!important;
+}
+
+#btn-associate,
 .btn.btn-primary {
     width: 100%;
     margin-top: 25px;
-    transition: 0.5s;
 }
 
+#btn-associate:hover,
 .btn.btn-primary:hover {
-    opacity: 0.85;
+    opacity: 0.7;
+    border-color: #40E0D0!important;
+    background-color: #40E0D0!important;
+}
+
+.btn.btn-outline-primary {
+    width: 100%;
+    margin-top: 25px;
+    transition: 0.5s;
+    border-color: #40E0D0;
+    color: #40E0D0!important;
+}
+
+.btn.btn-outline-primary:hover {
+    opacity: 0.7;
+    border-color: #40E0D0;
+    color: #fff!important;
+    background-color: #40E0D0;
+}
+
+.btn.btn-outline-primary:active {
+    border-color: #40E0D0!important;
+    background-color: #40E0D0!important;
+    color: #fff!important;
 }
 
 .row.align-items-center {
@@ -110,13 +145,20 @@ body {
     padding-top: 50px;
 }
 
+#th-actions{
+    text-align: end;
+    padding-right: 4em;
+}
+
 @media (min-width: 768px) {
     #form-container {
         margin: 50px auto;
         padding: 50px;
     }
 
-    .btn.btn-primary {
+    #btn-associate,
+    .btn.btn-primary,
+    .btn.btn-outline-primary {
         width: auto;
     }
 

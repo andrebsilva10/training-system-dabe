@@ -23,8 +23,14 @@ class AssociateTrainingsController extends BaseController
     public function create()
     {
         $this->authenticated();
-        $user_id = $this->params['user']['user_id'];
-        $training_id = $this->params['training']['training_id'];
+
+        $user_id = isset($this->params['user']['user_id']) ? $this->params['user']['user_id'] : null;
+        $training_id = isset($this->params['training']['training_id']) ? $this->params['training']['training_id'] : null;
+
+        if ($user_id === null || $training_id === null) {
+            Flash::message('danger', 'Por favor, selecione um colaborador e um treinamento.');
+            $this->redirectTo('/associateTrainings');
+        }
 
         if (TrainingUser::isAlreadyAssociateTrainings($user_id, $training_id)) {
             Flash::message('danger', 'Treinamento já vinculado a este colaborador.');

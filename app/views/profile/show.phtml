@@ -1,19 +1,21 @@
-<h1> Meu Perfil </h1>
+<div class="container col-11 col-md-9 text-center" id="form-container">
+    <div class="row gx-5">
+        <h1>Opções da conta</h1>
 
-<p>
-    <img class="avatar" src="<?= $this->currentUser()->avatar()->path() ?>" alt="avatar">
-</p>
-<p>
-    <strong>Nome: </strong> <?= $this->currentUser()->getName() ?>
-</p>
-<p>
-    <strong>Email: </strong> <?= $this->currentUser()->getEmail() ?>
-</p>
+        <p>
+            <img class="avatar" src="<?= $this->currentUser()->avatar()->path() ?>" alt="avatar">
+        </p>
+        <form class="mb-3" action="/profile" method="POST" enctype="multipart/form-data">
+                <label class="btn btn-outline-primary mt-3 mb-md-3" for="user_avatar" id="user_avatar_label">Alterar imagem</label>
+                <input class="d-none" type="file" name="user_avatar" id="user_avatar">
+            <input class="btn btn-primary mt-3 mb-md-3" type="submit" value="Enviar">
+        </form>
+        <p>
+            <strong>Nome: </strong> <?= $this->currentUser()->getName() ?>
+        </p>
+        <p>
+            <strong>Email: </strong> <?= $this->currentUser()->getEmail() ?>
+        </p>
 
-<hr>
-
-<form action="/profile" method="POST" enctype="multipart/form-data">
-    <label for="user_avatar">Selecione o avatar</label>
-    <input type="file" name="user_avatar" id="user_avatar">
-    <input type="submit" value="Enviar">
-</form>
+    </div>
+</div>

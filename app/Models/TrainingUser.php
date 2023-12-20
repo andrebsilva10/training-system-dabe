@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Lib\Validations;
 use App\Models\Base;
 use Core\Db\Database;
+use PDO;
 
 class TrainingUser extends Base
 {
@@ -64,5 +65,31 @@ class TrainingUser extends Base
         $stmt->execute();
 
         return ($stmt->fetchColumn() > 0);
+    }
+
+    public function collaborators()
+    {
+        $users = [];
+        $sql = <<<SQL
+            use training_system_development;
+            SELECT
+                u.id,
+                u.name,
+                u.email
+            FROM users u, training_users tu
+            WHERE u.id = tu.user_id
+            AND tu.training_id = :training_id;
+        SQL;
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':training_id', $this->getTrainingId());
+        $stmt->execute();
+        $resp = $stmt->fetchAll(PDO::FETCH_NUM);
+
+        foreach ($resp as $row) {
+            $resp[] = new User(...$row);
+        }
+
+        return $users;
     }
 }

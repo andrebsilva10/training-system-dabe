@@ -6,3 +6,4 @@
 /.phpunit.cache
 /public/assets/uploads
 ./log/nginx/access.log
+./log/nginx/error.log

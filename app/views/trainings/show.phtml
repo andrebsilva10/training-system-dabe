@@ -1,10 +1,26 @@
-<?php foreach ($trainings as $training) : ?>
-    <tr>
-        <th><?= $training->getId() ?></th>
-        <td>
-            <p><?= $training->getName(); ?></p>
-        </td>
-    </tr>
-<?php endforeach ?>
-</tbody>
-</table>
+<div class="col-11 col-md-9" id="form-container">
+    <div class="align-items-center">
+        <div class="d-flex justify-content-between">
+            <h2>Meus treinamentos</h2>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Treinamento</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($trainings as $training) : ?>
+                    <tr>
+                        <th><?= $training->getId() ?></th>
+                        <td><?= $training->getName(); ?></td>
+                        <!-- EXIBIR O STATUS AQUI -->
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+</div>

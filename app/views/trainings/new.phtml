@@ -1,32 +1,30 @@
-<main>
-    <div class="container col-11 col-md-9" id="form-container">
-        <div class="row align-items-center gx-5">
-            <div class="col-md-6 order-md-2">
-                <h2>Novo Treinamento</h2>
-                <form action="/trainings" method="POST" class="">
-                    <div class="form-floating mb-3">
-                        <input id="training_name" type="text" name="training[name]" class="form-control " placeholder="Nome">
-                        <label for="training_name" class="form-label">Nome</label>
-                        <span class="invalid-feedback"></span>
-                    </div>
-                    <label class="mb-2" for="trainings_category_id">Categoria</label>
-                    <select class="form-select" id="training_category_id" aria-label="Nome da Categoria" name="training[training_category_id]">
-                        <option selected disabled>Selecione a Categoria</option>
-
-                        <?php foreach ($trainings_category as $trainings_category) { ?>
-                            <option value="<?= $trainings_category->getId() ?>">
-                                <?= $trainings_category->getname() ?></option>
-                        <?php } ?>
-                    </select>
-                    <input class="btn btn-primary" type="submit" value="Adicionar">
-                </form>
-            </div>
-
-            <div class="col-md-6 order-md-1">
-                <div class="col-12">
-                    <img src="/assets/images/sign_in.svg" alt="Entrar no sistema" class="img-fluid" />
+<div class="col-11 col-md-9" id="form-container">
+    <div class="row align-items-center gx-5">
+        <div class="col-md-6 order-md-2">
+            <h2>Cadastrar Treinamento</h2>
+            <form action="/trainings" method="POST" class="">
+                <div class="form-floating mb-3">
+                    <input id="training_name" type="text" name="training[name]" class="form-control " placeholder="Nome">
+                    <label for="training_name" class="form-label">Nome</label>
+                    <span class="invalid-feedback"></span>
                 </div>
+                <label class="mb-2 form-label" for="trainings_category_id">Categoria</label>
+                <select class="form-select" id="training_category_id" aria-label="Nome da Categoria" name="training[training_category_id]">
+                    <option selected disabled value="">Selecione a Categoria</option>
+
+                    <?php foreach ($trainings_category as $trainings_category) { ?>
+                        <option value="<?= $trainings_category->getId() ?>">
+                            <?= $trainings_category->getname() ?></option>
+                    <?php } ?>
+                </select>
+                <input class="btn btn-primary" type="submit" value="Cadastrar">
+            </form>
+        </div>
+
+        <div class="col-md-6 order-md-1">
+            <div class="col-12">
+                <img src="/assets/images/new_training.svg" alt="Entrar no sistema" class="img-fluid" />
             </div>
         </div>
     </div>
-</main>
+</div>

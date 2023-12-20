@@ -131,7 +131,8 @@ abstract class Base
 
         $stmt->execute();
 
-        return ($stmt->rowCount() != 0);
+
+        return $stmt->rowCount() > 0;
     }
 
     public function update($data)
@@ -194,7 +195,6 @@ abstract class Base
         $sqlConditions = array_map(function ($column) {
             return "{$column} = :{$column}";
         }, array_keys($conditions));
-
         $sql .= " WHERE " . implode(' AND ', $sqlConditions);
 
         $pdo = Database::getDBConnection();
@@ -217,7 +217,6 @@ abstract class Base
     public static function findBy($conditions)
     {
         $resp = self::where($conditions);
-        var_dump($conditions);
         if (isset($resp[0]))
             return $resp[0];
 

@@ -5,7 +5,8 @@ namespace App\Controllers;
 use App\Lib\Flash;
 use App\Models\Training;
 use App\Models\TrainingsCategory;
-
+use App\Models\TrainingUser;
+use Core\Debug\Debug;
 
 class TrainingsController extends BaseController
 {
@@ -32,10 +33,17 @@ class TrainingsController extends BaseController
     {
         $this->authenticated();
 
-        $training = Training::findById($this->params[':id']);
-        $users = $training->collaborators();
+        $user_id = $this->currentUser()->getId();
 
-        $this->render('trainings/show', compact('training', 'users'));
+        $trainingUsers = TrainingUser::where(['user_id' => $user_id]);
+
+        $trainings = [];
+
+        foreach ($trainingUsers as $trainingUser) {
+            $trainings[] = $trainingUser->getTraining();
+        }
+
+        $this->render('trainings/show', compact('trainings'));
     }
 
     public function edit()
@@ -68,6 +76,11 @@ class TrainingsController extends BaseController
     {
         $this->authenticated();
 
+        if (!isset($this->params['training']['training_category_id'])) {
+            Flash::message('danger', 'Por favor, selecione uma categoria para o treinamento.');
+            $this->redirectTo('/trainings/new');
+        }
+
         $training_category_id = $this->params['training']['training_category_id'];
         $training = new Training(
             -1,
@@ -80,7 +93,6 @@ class TrainingsController extends BaseController
             $this->redirectTo('/trainings');
         } else {
             Flash::message('danger', 'Dados incorretos!');
-
             $this->redirectTo('/trainings/new');
         }
     }
@@ -91,12 +103,20 @@ class TrainingsController extends BaseController
 
         $training_id = $this->params['training']['id'];
 
-        $training = Training::findById($training_id);
+        try {
+            $training = Training::findById($training_id);
+            $success = $training->destroy();
 
-        $training->destroy();
-
-        Flash::message('success', 'Treinamento removido com sucesso!');
+            if ($success) {
+                Flash::message('success', 'Treinamento removido com sucesso!');
+            } else {
+                Flash::message('danger', 'Não foi possível remover o treinamento. Certifique-se de que não há usuários associados.');
+            }
+        } catch (\PDOException $e) {
+            Flash::message('danger', 'Não foi possível remover o treinamento. Certifique-se de que não há usuários associados.');
+        }
 
         $this->redirectTo('/trainings');
     }
+
 }

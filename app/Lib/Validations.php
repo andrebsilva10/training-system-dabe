@@ -26,33 +26,6 @@ class Validations
         return true;
     }
 
-    /* public static function uniqueness($fields, $object)
-    {
-        $table = $object->getTable();
-        $conditions = implode(' AND ', array_map(fn ($field) => "{$field} = :{$field}", $fields));
-
-        $sql = <<<SQL
-            SELECT id FROM {$table} WHERE {$conditions};
-        SQL;
-
-        $pdo = Database::getDBConnection();
-        $stmt = $pdo->prepare($sql);
-        foreach ($fields as $field) {
-            $method = 'get' . StringUtils::snakeToCamelCase($field);
-            $stmt->bindValue($field, $object->$method());
-        }
-
-        $stmt->execute();
-
-        if ($stmt->rowCount() !== 0) {
-            foreach ($fields as $field) {
-                $object->addError($field, 'já existe um registro com esse dado');
-            }
-            return false;
-        }
-
-        return true;
-    } */
     public static function uniqueness($columns, $model)
     {
         $table = $model::getTable();
@@ -62,7 +35,6 @@ class Validations
             $conditions[] = "{$column} = :{$column}";
         }
 
-        // Se for uma atualização, exclua o próprio registro da verificação de unicidade
         if (!$model->newRecord()) {
             $conditions[] = "id != :id";
         }
@@ -80,7 +52,6 @@ class Validations
             $stmt->bindValue(":{$column}", $model->$method());
         }
 
-        // Se for uma atualização, vincule o ID atual do registro
         if (!$model->newRecord()) {
             $stmt->bindValue(":id", $model->getId());
         }

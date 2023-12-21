@@ -11,6 +11,7 @@ class UsersController extends BaseController
     public function new()
     {
         $this->authenticated();
+        $this->isAdmin();
         $user = new User();
         $this->render('users/new', compact('user'));
     }
@@ -18,6 +19,7 @@ class UsersController extends BaseController
     public function create()
     {
         $this->authenticated();
+        $this->isAdmin();
         $is_admin = isset($this->params['user']['is_admin']) ? 1 : 0;
 
         $user = new User(

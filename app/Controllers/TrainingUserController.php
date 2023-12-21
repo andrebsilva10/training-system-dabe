@@ -81,9 +81,9 @@ class TrainingUserController extends BaseController
     {
         $this->authenticated();
 
-        $training = Training::findById($this->params[':id']);
+        $trainingUser = TrainingUser::findById($this->params[':id']);
 
-        $this->render('trainingUser/edit', compact('training'));
+        $this->render('trainingUser/edit', compact('trainingUser'));
     }
 
     public function update()

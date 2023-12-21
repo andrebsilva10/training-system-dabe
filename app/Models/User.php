@@ -69,11 +69,6 @@ class User extends Base
         return password_verify($password, $this->password);
     }
 
-    public function trainings()
-    {
-        return new UserTrainingsService($this);
-    }
-
     public function avatar()
     {
         return new ProfileAvatar($this);
